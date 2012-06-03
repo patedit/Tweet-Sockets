@@ -1,0 +1,6 @@
+Tweet-Sockets
+------------
+
+Programmed both server and client sides.
+
+A client is able to send 'tweets' to a concurrent server in which they are stored. After that, the client can retrieve the info. about an specific 'tweet', delete it...

@@ -1,0 +1,25 @@
+FICHERO1 = sertweets_select
+FICHERO2 = storetweet
+FICHERO3 = sendtweet
+
+FICHEROS-CABECERA =	ttg.h
+FICHERO-EJECUTABLE =	$(FICHERO1)
+CC = gcc
+LIBS = -lnsl 
+
+
+all:	$(FICHERO-EJECUTABLE)
+
+$(FICHERO-EJECUTABLE):	$(FICHERO1).o $(FICHERO2).o $(FICHERO3).o
+			$(CC) $(FICHERO1).o $(FICHERO2).o $(FICHERO3).o -o $@ $(LIBS)
+	
+$(FICHERO1).o:	$(FICHERO1).c $(FICHEROS-CABECERA)
+		$(CC) -c $(FICHERO1).c
+$(FICHERO2).o:	$(FICHERO2).c $(FICHEROS-CABECERA)
+		$(CC) -c $(FICHERO2).c
+$(FICHERO3).o:	$(FICHERO3).c $(FICHEROS-CABECERA)
+		$(CC) -c $(FICHERO3).c
+
+clean:
+	\rm *.o
+	\rm $(FICHERO-EJECUTABLE)

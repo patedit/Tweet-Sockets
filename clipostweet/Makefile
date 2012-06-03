@@ -1,0 +1,22 @@
+FICHERO1 = cliposttweet
+FICHERO2 = posttweet
+
+FICHEROS-CABECERA =	ttg.h
+FICHERO-EJECUTABLE =	$(FICHERO1)
+CC = gcc
+LIBS = -lnsl 
+
+
+all:	$(FICHERO-EJECUTABLE)
+
+$(FICHERO-EJECUTABLE):	$(FICHERO1).o $(FICHERO2).o
+			$(CC) $(FICHERO1).o $(FICHERO2).o -o $@ $(LIBS)
+	
+$(FICHERO1).o:	$(FICHERO1).c $(FICHEROS-CABECERA)
+		$(CC) -c $(FICHERO1).c
+$(FICHERO2).o:	$(FICHERO2).c $(FICHEROS-CABECERA)
+		$(CC) -c $(FICHERO2).c
+
+clean:
+	\rm *.o
+	\rm $(FICHERO-EJECUTABLE)

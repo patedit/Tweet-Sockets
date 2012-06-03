@@ -1,0 +1,31 @@
+
+					||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+					||								            ||
+					||SERSENDTWEETS: Programa servidor iterativo de TCP para el envío de tweets.||
+					||								            ||
+					||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+Información General:  
+
+Esta aplicación permite el envío de mensajes cortos alamcenados en directorios de acuerdo a un tópico introducido por el cliente (leer readme de cligettweet).
+Para su ejecución se debe teclear ./sersendtweets junto con una serie de argumentos de entrada que son: <puerto> <backlog> y <tambuffer>.
+Se realiza una comprobación de cada uno de los argumentos para garanizar el correcto funcionamiento. En caso de que no se haga de manera adecuada se provocará
+la salida inmediata de la aplicación.
+La implementación de funciones en este programa sigue la estructura y el orden básico de un servidor TCP iterativo de una API de sockets. Se crea un socket,
+se deja el servidor a la escucha de peticiones de posibles conexiones, se acepta las peticiones de las conexiones y a continuación se pueden leer y/o escribir datos.
+Esta aplicación leerá el tópico introducido por el cliente para así poder seleccionar el mensaje que el cliente desea leer. Para ello se recurre a la función 
+sendtweet.
+La función sendtweet abrirá el fichero donde se almacenan el número total de tweets del tópico seleccionado que tiene el programa e informará al cliente de 
+cuantos hay. Después recibirá el número que el usuario desea leer y si este número no contiene errores se le transimitirá al cliente de tamaño de búffer en 
+tamaño de búffer bytes el mensaje almacenado. 
+
+Aspectos técnicos:
+
+A continuación se describen ciertos detalles técnicos de importancia de la aplicación:
+
+Es importante destacar que para al implementación de la aplicación se realiza una reserva de memoria. En esta aplicación se realiza la reserva de memoria para
+el buffer que se utilizará y para el tópico introducido. Para ello se recurre a la función malloc(), usando como tamaño de buffer el especificado en <tambuffer>. En el caso del tópico usaremos malloc(9) (9=tamaño máximo del tópico+\0).
+Hay que resaltar que para el funcionamiento correcto del servidor, en concordancia con el funcionamiento del cliente de obtención de tweets, la aplicación leerá
+hasta que encuentre un retorno de carro. Una vez leídos el tópico solicitado  por el cliente hasta el \n correspondiente al retorno de carro que nos marca el 
+final del tópico introducido, la aplicación deberá resustituir ese \n que nos marca el retorno de carro por un \0. Esto se debe a que para poder trabajar con cadenas
+de caracteres el último caracter que se debe almacenar ha de ser un \0.

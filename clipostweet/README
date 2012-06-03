@@ -1,0 +1,28 @@
+
+					|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+					||								   ||
+					||CLIPOSTTWEET: Programa cliente TCP para la publicación de tweets.||
+					||								   ||
+					|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+Información General:  
+
+Esta aplicación permite el envío de mensajes cortos acerca de un tópico a un servidor de tweets (serstoretweets, leer readme correspondiente).
+Para su ejecución se debe teclear ./cliposttweet junto con una serie de argumentos de entrada que son: <direccionIP> <puerto> <buffer> y <topico>.
+Se realiza una comprobación de cada uno de los argumentos para garanizar el correcto funcionamiento. En caso de que no se haga de manera adecuada se provocará
+la salida inmediata de la aplicación.
+La implementación de funciones en este programa sigue la estructura y el orden básico de un cliente TCP de una API de sockets. Se crea un socket, se procede a
+realizar una conexión para así poder leer y/o escribir datos.
+Esta aplicación realizará una preapración de los datos para así enviarlos correctamente y para enviarlos se procede a la llamada de la función: postweet.
+La función postweet permite que se envíe de manera adecuada el tweet que deseamos guardar en el tópico seleccionado. Después de la escritura del tweet, la aplicación
+principal realizará un cierre parcial de la conexión TCP a la espera de datos del servidor.
+
+Aspectos técnicos:
+
+A continuación se describen ciertos detalles técnicos de importancia de la aplicación:
+Es importante destacar que para al implementación de al aplicación se realiza una reserva de memoria. Reservamos la memoria necesaria para poder guardar el tópico
+introducido.Para ello se recurre a la función malloc(), usando como tamaño de buffer el especificado en <tambuffer>.
+Hay que resaltar que para lograr el envío de caracteres tópico terminado con un retorno de carro es necesario alterar la cadena de elementos incial. Se introduce
+un caracter \n en el último lugar de la cadena de caracteres de tópico sutituyendo al caracter \0 que introduce la cadena de caracteres al final.
+Para que se pueda trabajar con la cadena se reintroduce ese caracter \0 después del \n ya añadido.
+
